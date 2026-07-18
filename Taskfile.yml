@@ -1,0 +1,31 @@
+# yaml-language-server schema=https://taskfile.dev/schema.json
+
+version: 3
+
+tasks:
+  install:
+    cmds:
+      - ./scripts/install-k3s.sh
+
+  run:
+    cmds:
+      - ./scripts/start-image-registry.sh
+
+  install-cert-manager:
+    cmds:
+      - kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.2/cert-manager.yaml
+
+  k3s:traefik:
+    desc: Sync Traefik configuration to k3s
+    cmds:
+      - sudo mkdir -p /var/lib/rancher/k3s/server/manifests/
+      - sudo install -m 0644 k3s/traefik/helmchartconfig.yml /var/lib/rancher/k3s/server/manifests/traefik-config.yml
+      - sudo systemctl restart k3s
+
+  k3s:apply:
+    desc: Sync all k3s resources
+    deps:
+      - k3s:traefik
+    cmds:
+      - kubectl apply -f k3s/cert-manager/
+      - kubectl apply -f k3s/apps/
