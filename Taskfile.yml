@@ -1,0 +1,12 @@
+# yaml-language-server schema=https://taskfile.dev/schema.json
+
+version: 3
+
+tasks:
+  install:
+    cmds:
+      - ./scripts/install-k3s.sh
+
+  run:
+    cmds:
+      - ./scripts/start-image-registry.sh
