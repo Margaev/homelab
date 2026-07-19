@@ -1,0 +1,16 @@
+{
+    email andrei.margaev@gmail.com
+}
+
+# Normal HTTPS services
+drewysq.mywire.org {
+    handle /* {
+        reverse_proxy localhost:80
+    }
+}
+
+
+# Docker registry HTTPS endpoint
+drewysq.mywire.org:5001 {
+    reverse_proxy localhost:5001
+}
