@@ -5,7 +5,7 @@ version: 3
 tasks:
   install:
     cmds:
-      - ./scripts/install-k3s.sh
+      - curl -sfL https://get.k3s.io | sh -
 
   run:
     cmds:
@@ -19,7 +19,8 @@ tasks:
     desc: Sync Traefik configuration to k3s
     cmds:
       - sudo mkdir -p /var/lib/rancher/k3s/server/manifests/
-      - sudo install -m 0644 k3s/traefik/helmchartconfig.yml /var/lib/rancher/k3s/server/manifests/traefik-config.yml
+      - sudo install -m 0644 ./k3s/traefik/helmchartconfig.yml /var/lib/rancher/k3s/server/manifests/traefik-config.yml
+      - sudo install -m 0644 ./k3s/registries/registries.yml /etc/rancher/k3s/registries.yaml
       - sudo systemctl restart k3s
 
   k3s:apply:
@@ -29,3 +30,11 @@ tasks:
     cmds:
       - kubectl apply -f k3s/cert-manager/
       - kubectl apply -f k3s/apps/
+
+  docker:push-static:
+    dir: static
+    vars:
+      IMAGE_NAME: '{{.IMAGE_NAME | default "localhost:5001/homepage:latest"}}'
+    cmds:
+      - docker build -t {{.IMAGE_NAME}} .
+      - docker push {{.IMAGE_NAME}}
