@@ -1,0 +1,13 @@
+# yaml-language-server schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  push-homepage:
+    desc: Build and push homepage image
+    dir: homepage
+    vars:
+      IMAGE_NAME: '{{.IMAGE_NAME | default "localhost:5001/homepage:latest"}}'
+    cmds:
+      - docker build -t {{.IMAGE_NAME}} .
+      - docker push {{.IMAGE_NAME}}
