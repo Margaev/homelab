@@ -1,5 +1,0 @@
-# /etc/rancher/k3s/registries.yaml
-mirrors:
-  "192.168.31.84:5001":
-    endpoint:
-      - "http://192.168.31.84:5001"

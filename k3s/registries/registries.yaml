@@ -1,0 +1,5 @@
+# /etc/rancher/k3s/registries.yaml
+mirrors:
+  "homelab:5001":
+    endpoint:
+      - "http://homelab:5001"

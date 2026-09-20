@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  build:
+    desc: Build Docker image
+    vars:
+      IMAGE_NAME: "{{.IMAGE_NAME}}"
+      CONTEXT: '{{.CONTEXT | default "."}}'
+      DOCKERFILE: '{{.DOCKERFILE | default "Dockerfile"}}'
+    cmds:
+      - docker build -f {{.DOCKERFILE}} -t {{.IMAGE_NAME}} {{.CONTEXT}}
+
+  push:
+    desc: Push Docker image
+    vars:
+      IMAGE_NAME: "{{.IMAGE_NAME}}"
+    cmds:
+      - docker push {{.IMAGE_NAME}}
+
+  build-push:
+    desc: Build and push Docker image
+    cmds:
+      - task: build
+        vars:
+          IMAGE_NAME: "{{.IMAGE_NAME}}"
+          CONTEXT: '{{.CONTEXT | default "."}}'
+          DOCKERFILE: '{{.DOCKERFILE | default "Dockerfile"}}'
+      - task: push
+        vars:
+          IMAGE_NAME: "{{.IMAGE_NAME}}"

@@ -3,17 +3,22 @@
 version: "3"
 
 tasks:
-  install-cert-manager:
-    desc: Install cert-manager
+  start-registry:
+    desc: Start local image registry
     cmds:
-      - kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.2/cert-manager.yaml
+      - ./scripts/start-image-registry.sh
+
+  install-k3s:
+    desc: Install k3s
+    cmds:
+      - curl -sfL https://get.k3s.io | sh -
 
   traefik:
     desc: Sync Traefik configuration to k3s
     cmds:
       - sudo mkdir -p /var/lib/rancher/k3s/server/manifests/
-      - sudo install -m 0644 ./k3s/traefik/helmchartconfig.yml /var/lib/rancher/k3s/server/manifests/traefik-config.yml
-      - sudo install -m 0644 ./k3s/registries/registries.yml /etc/rancher/k3s/registries.yaml
+      - sudo install -m 0644 ./k3s/traefik/helmchartconfig.yaml /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+      - sudo install -m 0644 ./k3s/registries/registries.yaml /etc/rancher/k3s/registries.yaml
       - sudo systemctl restart k3s
 
   apply:

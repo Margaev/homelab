@@ -1,0 +1,11 @@
+extraArgs:
+  - --interval
+  - 30s
+
+config:
+  registries:
+    - name: local-registry
+      api_url: http://homelab:5001
+      ping: yes
+      # credentials: secret:foo/bar#creds
+      # defaultns: library

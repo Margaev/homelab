@@ -1,0 +1,26 @@
+server:
+  service:
+    type: NodePort
+  ingress:
+    enabled: false
+
+configs:
+  params:
+    server.insecure: true
+  cm:
+    kustomize.buildOptions: --enable-helm
+
+dex:
+  enabled: false
+
+controller:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+repoServer:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi

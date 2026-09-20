@@ -2,7 +2,7 @@
 set -o errexit
 
 # 1. Create registry container unless it already exists
-REGISTRY_NAME="${REGISTRY_NAME:-kind-registry}"
+REGISTRY_NAME="${REGISTRY_NAME:-docker-registry}"
 REGISTRY_PORT="${REGISTRY_PORT:-5001}"
 
 if [ "$(docker inspect -f '{{.State.Running}}' "${REGISTRY_NAME}" 2>/dev/null || true)" != 'true' ]; then
