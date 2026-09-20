@@ -52,6 +52,14 @@ resource "helm_release" "cert-manager" {
   ]
 }
 
+resource "kubernetes_manifest" "cert-issuer" {
+  manifest = yamldecode(file("${path.module}/cert-issuer.yaml"))
+
+  depends_on = [
+    helm_release.cert-manager,
+  ]
+}
+
 resource "kubernetes_manifest" "argocd_project" {
   manifest = yamldecode(templatefile("${path.module}/templates/argocd-project.yaml.tftpl", {
     argocd_namespace = var.argocd_namespace
@@ -81,4 +89,3 @@ resource "kubernetes_manifest" "argocd_image_updater" {
     kubernetes_manifest.argocd_application_set,
   ]
 }
-
