@@ -17,7 +17,19 @@ variable "argocd_chart_version" {
 }
 
 variable "argocd_image_updater_chart_version" {
-  description = "ArgoCD Image Updater Helm chart version"
+  description = "ArgoCD Image Updater helm chart version"
   type        = string
   default     = "1.3.1"
+}
+
+variable "cert_manager_namespace" {
+  description = "cert-manager namespace"
+  type        = string
+  default     = "cert-manager"
+}
+
+variable "cert_manager_chart_version" {
+  description = "cert-manager helm chart version"
+  type        = string
+  default     = "1.21.2"
 }
