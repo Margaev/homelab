@@ -49,40 +49,6 @@ tasks:
       - task: _destroy
         vars: { DIR: "./infra" }
 
-  init-gitops:
-    desc: Init gitops module
-    cmds:
-      - task: _init
-        vars: { DIR: "./gitops" }
-
-  apply-gitops:
-    desc: Apply gitops module
-    deps:
-      - init-gitops
-    cmds:
-      - task: _apply
-        vars: { DIR: "./gitops" }
-
-  destroy-gitops:
-    desc: Destroy gitops module
-    deps:
-      - init-gitops
-    cmds:
-      - task: _destroy
-        vars: { DIR: "./gitops" }
-
-  apply-all:
-    desc: Apply all modules in order
-    cmds:
-      - task: apply-infra
-      - task: apply-gitops
-
-  destroy-all:
-    desc: Destroy all modules in order
-    cmds:
-      - task: destroy-gitops
-      - task: destroy-infra
-
   get-argo-password:
     desc: "Get the ArgoCD UI password. Usage: `task get-argo-password | pbcopy`"
     cmds:
