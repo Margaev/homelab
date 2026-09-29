@@ -8,6 +8,7 @@ dotenv:
 includes:
   k3s:
     taskfile: k3s/Taskfile.yaml
+    dir: ./k3s
 
   tofu:
     taskfile: ./tofu/Taskfile.yaml

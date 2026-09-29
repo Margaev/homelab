@@ -6,7 +6,7 @@ tasks:
   start-registry:
     desc: Start local image registry
     cmds:
-      - ./scripts/start-image-registry.sh
+      - ./setup/start-image-registry.sh
 
   install-k3s:
     desc: Install k3s
@@ -26,5 +26,5 @@ tasks:
     deps:
       - traefik
     cmds:
-      - kubectl apply -f k3s/cert-manager/
-      - kubectl apply -f k3s/apps/
+      - kubectl apply -f ./cert-manager/
+      - kubectl apply -f ./apps/
