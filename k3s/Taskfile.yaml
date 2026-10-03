@@ -13,6 +13,12 @@ tasks:
     cmds:
       - curl -sfL https://get.k3s.io | sh -
 
+  restart-k3s:
+    desc: Restart k3s
+    cmds:
+      - k3s-killall.sh
+      - sudo systemctl start k3s.service
+
   traefik:
     desc: Sync Traefik configuration to k3s
     cmds:
